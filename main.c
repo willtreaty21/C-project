@@ -2,6 +2,14 @@
 
 char answer;
 char* ansloc = &answer;
+
+int board() {
+    printf("_|_|_\n");
+    printf("_|_|_\n");
+    printf(" | | \n");
+}
+
+
 int main(int argc, char const *argv[])
 {
     printf("Welcome to tic tac toe!\n");
@@ -9,9 +17,11 @@ int main(int argc, char const *argv[])
     scanf("%c", ansloc);
     if (answer == 'S') {
         printf("starting game\n");
-        while(1){
+        board();
+        
+        printf("where would you like to place your symbol?\n");
+        
 
-        }
     }
     else if (answer == 'T') {
         printf("There is no tutorial yet\n");
