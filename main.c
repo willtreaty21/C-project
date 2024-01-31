@@ -1,65 +1,54 @@
 #include <stdio.h>
-
-char answer;
-char* ansloc = &answer;
-
-// variables for the stored move values
+#include <windows.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 
-int board() {
-    printf("_|_|_\n");
-    printf("_|_|_\n");
-    printf(" | | \n");
+// use strchr to find the location of the letter
+// use case statements in reverse with no breaks for the prints
+// like this 
+//       case 3:
+// prints  /\ 
+// prints  /|\ 
+// prints   O
+//
+// for printing what youve found use a string filled with underscores
+// [-------]
 
-    return 0;
-}
-int startGame() {
-    printf("starting game\n");
-    board();       
-    printf("where would you like to place your symbol?\n");
+int playercont;
+int* playercontloc = &playercont;
+
+int randomnum;
+char* word = "super";
+char* words[20] = {"try", "foundation", "poison", "shame", "stable", "boat", "trouble", "ranch", "liver", "pie", "referee", "pig", "chicken", "flush", "promise", "inquiry", "neck", "commerce", "win", "part"};
+char* selectedWord;
+int genRandWord() {
     
-
-
-    return 0;
-}
-int helpMenu() {
-    printf("When making a move send the move in the cordanates but you send the x cordinate and then press enter then send the y cordinate \n");
-    printf("for example if you're playing as X and you send this:\n");
-    printf("1\n");
-    printf("2\n");
-    printf("Would place your marker here:\n");
-    printf("_|_|_\n");
-    printf("X|_|_\n");
-    printf("_|_|_\n");
-    printf("the rest are the basic rules of tic tac toe, get 3 in a row to win\n");
-    printf("Would you like to reread the tutorial or start the game (T/N)\n");
-    timer
-    scanf("%c", ansloc);
-
-    if (answer == 'S') {
-        startGame();
-    }
-    else if (answer == 'T') {
-        helpMenu();
-    }
-    else {
-        printf("That is not a valid input please try again");
-    }
+    selectedWord = words[rand() % 20];
 }
 
-int main(int argc, char const *argv[])
-{
-    printf("Welcome to tic tac toe!\n");
-    printf("Would you like to start or read the tutorial (S/T)\n");
-    scanf("%c", ansloc);
-    if (answer == 'S') {
-        startGame();
+int twoPlayer() {
+
+}
+
+int onePlayer() {
+    printf("Generating a random number");
+    
+}
+
+
+int main(int argc, char const *argv[]) {
+    printf("Welcome to hangman! Would you like to play one player or 2 player? (1/2)");
+    scanf("%d", playercontloc);
+
+    if (playercont == 2) {
+
     }
-    else if (answer == 'T') {
-        helpMenu();
+    else if (playercont == 1) {
+        
     }
     else {
-        printf("That is not a valid input please try again");
+        printf("That is not a valid input");
     }
-    return 0;
+
 }
