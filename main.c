@@ -29,6 +29,8 @@ char wordLength;
 //char guessFilled[];
 int guessesWrong = 0;
 char guess[] = "";
+int guessedLetters;
+int gameOver;
 
 
 
@@ -87,6 +89,7 @@ int printHangman() {
             printf("|   /|\\ \n");
             printf("|   / \\ \n");
             printf("|       \n");
+            gameOver = 1;
       break;
       return 0;
  }  
@@ -112,7 +115,21 @@ int onePlayer() {
     sleep(2);
 
     // game loop :
-    while(1) {
+    while(gameOver == 0) {
+        // print the hangman
+        if (guessesWrong == 0) {
+            printf("________\n");
+            printf("|       \n");
+            printf("|       \n");
+            printf("|       \n");
+            printf("|       \n");
+            printf("|       \n");
+        }
+        printHangman();
+        // print out what they have guessed and ask them to input their next guess
+        printf("you have currentlyGuessed: ")
+        printf("%s", currentlyGuessed);
+        printf("\n");
         printf("Please input your guess\n");
         scanf("%c", &guess);
 
@@ -120,16 +137,35 @@ int onePlayer() {
         for (int i = 0; i < wordLength; i++) {
             if (word[i] == guess) {
                 currentlyGuessed[i] = guess;
+                correct++;
             }
         }
 
-        if (correct) {
+        // check if they have guessed all the letters
+        for (i = 0; i < wordLength; i++) {
+            if (!word[i] == "-") {
+                guessedLetters++;
+                break;
+            }
+        }
+
+        // if they have guessed all the letters end the game otherwise clear the variable
+        if (guessedLetters == wordLength) {
+            printf("Congradulations you have guessed the word");
+        }
+        else {
+            guessedLetters = 0;
+        }
+
+        // print out whether it was right or not 
+        if (correct == 0) {
             printf("That letter is not in the word\n");
+            guessesWrong++;
         }
         else {
             printf("good Job that letter is in the word\n");
-
         }
+        
     }
 
     return 0;
