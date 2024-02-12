@@ -24,6 +24,7 @@ int randomnum;
 char word;
 char* words[20] = {"try", "foundation", "poison", "shame", "stable", "boat", "trouble", "ranch", "liver", "pie", "referee", "pig", "chicken", "flush", "promise", "inquiry", "neck", "commerce", "win", "part"};
 char* selectedWord;
+char sselectedWord;
 char wordLength;
 char currentlyGuessed[20];
 //char guessFilled[];
@@ -33,6 +34,7 @@ char* guessloc = &guess;
 int guessedLetters;
 int gameOver;
 int correct = 0;
+int guessCorrect = 0;
 char blank[] = "-";
 
 int genRandWord() {
@@ -104,11 +106,13 @@ int twoPlayer() {
 int onePlayer() {
     printf("Generating a random word");
     genRandWord();
-    wordLength = (strlen(selectedWord) + 1);
+    word = *selectedWord;
+    wordLength = strlen(selec);
     // prep the string that contains your correct guesses
     for (int i =0; i < wordLength; i++){
         currentlyGuessed[i] = '-';
     }
+    wordLength = strlen(currentlyGuessed);
     strcpy(&word, selectedWord);
     // tell the player the word is ready
     printf("Word generated! The word is ");
@@ -143,10 +147,15 @@ int onePlayer() {
                 correct++;
             }
         }
+
+         if (correct > 0) {
+             correct = 0;
+             guessCorrect = 1;
+         }
         
         // check if they have guessed all the letters
         for (int i = 0; i < wordLength; i++) {
-            if (!(selectedWord[i] == blank[0])) {
+            if (!(selectedWord[i] == blank[1])) {
                 guessedLetters++;
                 break;
             }
@@ -159,14 +168,15 @@ int onePlayer() {
         else {
             guessedLetters = 0;
         }
-
         // print out whether it was right or not 
-        if (correct == 0) {
+        if (guessCorrect == 0) {
             printf("That letter is not in the word\n");
             guessesWrong++;
+            guessCorrect = 0;
         }
         else {
             printf("good Job that letter is in the word\n");
+            guessCorrect = 0;
         }
         
     }
