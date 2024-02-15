@@ -106,8 +106,7 @@ int twoPlayer() {
 int onePlayer() {
     printf("Generating a random word");
     genRandWord();
-    word = *selectedWord;
-    wordLength = strlen(selec);
+    wordLength = strlen(selectedWord);
     // prep the string that contains your correct guesses
     for (int i =0; i < wordLength; i++){
         currentlyGuessed[i] = '-';
@@ -122,6 +121,7 @@ int onePlayer() {
 
     // game loop :
     while(gameOver == 0) {
+        system("clear");
         // print the hangman
         if (guessesWrong == 0) {
             printf("________\n");
@@ -179,6 +179,11 @@ int onePlayer() {
             guessCorrect = 0;
         }
         
+    }
+    if (gameOver == 1) {
+        printf("Game over\n");
+        printf("The word was: %s", selectedWord);
+        printf("\n");
     }
 
     return 0;
