@@ -99,7 +99,7 @@ int printHangman() {
 }
 
 int twoPlayer() {
-   
+    printf("Two player does not exist yet please try after an update");
     return 0;
 }
 
@@ -132,6 +132,15 @@ int onePlayer() {
             printf("|       \n");
         }
         printHangman();
+
+        // make sure its not game over yet 
+        if (gameOver == 1) {
+        printf("Game over\n");
+        printf("The word was: %s", selectedWord);
+        printf("\n");
+        return 0;
+        }
+
         // print out what they have guessed and ask them to input their next guess
         printf("you have currentlyGuessed: ");
         printf("%s", currentlyGuessed);
@@ -180,11 +189,6 @@ int onePlayer() {
         }
         
     }
-    if (gameOver == 1) {
-        printf("Game over\n");
-        printf("The word was: %s", selectedWord);
-        printf("\n");
-    }
 
     return 0;
 }
@@ -204,5 +208,5 @@ int main(int argc, char const *argv[]) {
     else {
         printf("That is not a valid input");
     }
-
+    
 }
