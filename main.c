@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 // use strchr to find the location of the letter
 // use case statements in reverse with no breaks for the prints
@@ -35,9 +36,10 @@ int guessedLetters;
 int gameOver;
 int correct = 0;
 int guessCorrect = 0;
-char blank[] = "-";
+char blank = '-';
 
 int genRandWord() {
+    srand(time(NULL));
     selectedWord = words[rand() % 20];
     return 0;
 }
@@ -95,7 +97,7 @@ int printHangman() {
             gameOver = 1;
       break;
       return 0;
- }  
+ }  ;
 }
 
 int twoPlayer() {
@@ -104,24 +106,27 @@ int twoPlayer() {
 }
 
 int onePlayer() {
-    printf("Generating a random word");
+    printf("Generating a random word\n");
     genRandWord();
     wordLength = strlen(selectedWord);
+    printf("%d, %s\n", wordLength);
+
     // prep the string that contains your correct guesses
-    for (int i =0; i < wordLength; i++){
+    for (int i = 0; i < wordLength; i++){
         currentlyGuessed[i] = '-';
     }
-    wordLength = strlen(currentlyGuessed);
-    strcpy(&word, selectedWord);
+    
     // tell the player the word is ready
     printf("Word generated! The word is ");
-    printf("%d", &wordLength);
+    printf("%d", wordLength);
     printf(" letters long\n");
     sleep(2);
 
     // game loop :
     while(gameOver == 0) {
-        system("clear");
+        system("clear"); // [REVIEW]: There's an asci escape code for this
+
+
         // print the hangman
         if (guessesWrong == 0) {
             printf("________\n");
@@ -135,17 +140,20 @@ int onePlayer() {
 
         // make sure its not game over yet 
         if (gameOver == 1) {
-        printf("Game over\n");
-        printf("The word was: %s", selectedWord);
-        printf("\n");
-        return 0;
+            // [REVIEW]: put the print lines together
+            printf("Game over\n");
+            printf("The word was: %s\n", selectedWord);
+            return 0;
         }
 
+
         // print out what they have guessed and ask them to input their next guess
+        // [REVIEW]: Put them together
         printf("you have currentlyGuessed: ");
         printf("%s", currentlyGuessed);
         printf("\n");
         sleep(1);
+
         printf("Please input your guess\n");
         scanf(" %c", &guess);
 
@@ -157,26 +165,29 @@ int onePlayer() {
             }
         }
 
+        // [REVIEW]: THIS IS KINDA USELESS
          if (correct > 0) {
              correct = 0;
              guessCorrect = 1;
          }
         
-        // check if they have guessed all the letters
+        guessCorrect = 0;
+
         for (int i = 0; i < wordLength; i++) {
-            if (!(selectedWord[i] == blank[1])) {
-                guessedLetters++;
+            // [REVIEW]: This statement can be simplified
+            if (currentlyGuessed[i] == '-') {
                 break;
             }
+            else{
+                guessCorrect++;
+            } 
         }
 
-        // if they have guessed all the letters end the game otherwise clear the variable
-        if (guessedLetters == wordLength) {
-            printf("Congradulations you have guessed the word");
+        if (guessCorrect == wordLength) {
+            printf("Congradulations you have won the game!\n");
+            return 0;
         }
-        else {
-            guessedLetters = 0;
-        }
+
         // print out whether it was right or not 
         if (guessCorrect == 0) {
             printf("That letter is not in the word\n");
@@ -198,7 +209,7 @@ int main(int argc, char const *argv[]) {
     printf("Welcome to hangman! Would you like to play one player or 2 player? (1/2)\n");
     scanf(" %d", playercontloc);
     
-
+    // [REVIEW]: Switch?
     if (playercont == 2) {
         twoPlayer();
     }
