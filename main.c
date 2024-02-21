@@ -5,19 +5,6 @@
 #include <string.h>
 #include <time.h>
 
-// use strchr to find the location of the letter
-// use case statements in reverse with no breaks for the prints
-// like this
-//       case 3:
-// prints  /\
-//       case 2;
-// prints  /|\
-//       case 1;
-// prints   O
-//
-// for printing what youve found use a string filled with underscores
-// [-------]
-
 int playercont;
 int* playercontloc = &playercont;
 
@@ -36,6 +23,7 @@ int guessedLetters;
 int gameOver;
 int correct = 0;
 int guessCorrect = 0;
+int guesssCorrect = 0;
 char blank = '-';
 
 int genRandWord() {
@@ -124,6 +112,7 @@ int onePlayer() {
 
     // game loop :
     while(gameOver == 0) {
+        //printf("\e");
         system("clear"); // [REVIEW]: There's an asci escape code for this
 
 
@@ -141,8 +130,13 @@ int onePlayer() {
         // make sure its not game over yet 
         if (gameOver == 1) {
             // [REVIEW]: put the print lines together
-            printf("Game over\n");
-            printf("The word was: %s\n", selectedWord);
+            printf("Game over\nThe word was: %s\n", selectedWord);
+            return 0;
+        }
+
+        // check if they have won the game
+        if (guessCorrect == wordLength) {
+            printf("Congradulations you have won the game!\n");
             return 0;
         }
 
@@ -164,12 +158,6 @@ int onePlayer() {
                 correct++;
             }
         }
-
-        // [REVIEW]: THIS IS KINDA USELESS
-         if (correct > 0) {
-             correct = 0;
-             guessCorrect = 1;
-         }
         
         guessCorrect = 0;
 
@@ -179,17 +167,13 @@ int onePlayer() {
                 break;
             }
             else{
+                guesssCorrect = 1;
                 guessCorrect++;
             } 
         }
 
-        if (guessCorrect == wordLength) {
-            printf("Congradulations you have won the game!\n");
-            return 0;
-        }
-
         // print out whether it was right or not 
-        if (guessCorrect == 0) {
+        if (guesssCorrect == 0) {
             printf("That letter is not in the word\n");
             guessesWrong++;
             guessCorrect = 0;
