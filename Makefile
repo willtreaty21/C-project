@@ -1,6 +1,5 @@
 all:
-	gcc -o m main.c
-	./m
-
+	gcc -o Hangman main.c
+	./Hangman
 clean : 
 		rm edit main.o

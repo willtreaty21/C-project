@@ -89,7 +89,8 @@ int printHangman() {
 }
 
 int twoPlayer() {
-    printf("Two player does not exist yet please try after an update");
+    printf("Would you like to play versus or have one guesser and one person select the word? (V/S)");
+
     return 0;
 }
 
@@ -112,7 +113,7 @@ int onePlayer() {
 
     // game loop :
     while(gameOver == 0) {
-        //printf("\e");
+        //printf("ESC2J");
         system("clear"); // [REVIEW]: There's an asci escape code for this
 
 
@@ -131,12 +132,6 @@ int onePlayer() {
         if (gameOver == 1) {
             // [REVIEW]: put the print lines together
             printf("Game over\nThe word was: %s\n", selectedWord);
-            return 0;
-        }
-
-        // check if they have won the game
-        if (guessCorrect == wordLength) {
-            printf("Congradulations you have won the game!\n");
             return 0;
         }
 
@@ -172,17 +167,21 @@ int onePlayer() {
             } 
         }
 
+        if (guessCorrect == wordLength) {
+            printf("Congradulations you have won the game!\n");
+            return 0;
+        }
+
         // print out whether it was right or not 
-        if (guesssCorrect == 0) {
+        if (correct == 0) {
             printf("That letter is not in the word\n");
             guessesWrong++;
-            guessCorrect = 0;
+            correct = 0;
         }
-        else {
+        else if (correct > 0) {    // leave as else if. it doesnt work with else
             printf("good Job that letter is in the word\n");
-            guessCorrect = 0;
+            correct = 0;
         }
-        
     }
 
     return 0;
